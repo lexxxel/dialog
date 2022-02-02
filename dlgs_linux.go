@@ -13,8 +13,14 @@ package dialog
 // }
 import "C"
 import "unsafe"
+import "os"
 
 func init() {
+	_, runAsUnitTest := os.LookupEnv("DIALOG_UNITTEST")
+	if runAsUnitTest {
+		return
+	}
+
 	C.XInitThreads()
 	C.gtk_init(nil, nil)
 }
